@@ -1,22 +1,16 @@
-import tensorflow as tf
 import numpy as np
+from tensorflow.keras.models import load_model
 from app.preprocess import preprocess_image
 
-class Predictor:
-    def __init__(self, model_path: str):
-        self.model = tf.keras.models.load_model(model_path)
-        self.class_names = ['Fake', 'Real'] # Update based on actual training
+MODEL_PATH = "model/currency_cnn.h5"
+model = load_model(MODEL_PATH)
 
-    def predict(self, image_bytes: bytes):
-        processed_image = preprocess_image(image_bytes)
-        predictions = self.model.predict(processed_image)
-        predicted_class_index = np.argmax(predictions[0])
-        confidence = float(np.max(predictions[0]))
-        
-        return {
-            "prediction": self.class_names[predicted_class_index],
-            "confidence": confidence
-        }
+LABELS = ["Real", "Fake"]
 
-# Singleton instance to be used by main app
-# predictor = Predictor("model/currency_cnn.h5") 
+def predict_currency(image):
+    preprocessed = preprocess_image(image)
+    preprocessed = np.expand_dims(preprocessed, axis=0)  # Batch dimension
+    pred = model.predict(preprocessed, verbose=0)[0]
+    label = LABELS[np.argmax(pred)]
+    confidence = float(np.max(pred))
+    return label, confidence

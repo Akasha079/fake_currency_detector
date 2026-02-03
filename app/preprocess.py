@@ -1,13 +1,12 @@
-from PIL import Image
+import cv2
 import numpy as np
-import io
 
-def preprocess_image(image_bytes: bytes, target_size=(224, 224)):
-    """
-    Preprocess the image bytes into a format suitable for the model.
-    """
-    image = Image.open(io.BytesIO(image_bytes))
-    image = image.resize(target_size)
-    image_array = np.array(image) / 255.0  # Normalize
-    image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
-    return image_array
+def preprocess_image(image, target_size=(128,128)):
+    # Convert to grayscale
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # Resize
+    resized = cv2.resize(gray, target_size)
+    # Normalize
+    normalized = resized / 255.0
+    # Expand dims for CNN
+    return np.expand_dims(normalized, axis=-1)
