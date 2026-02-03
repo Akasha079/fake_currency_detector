@@ -4,3 +4,7 @@ tensorflow
 opencv-python
 numpy
 pillow
+pydantic
+python-multipart
+matplotlib
+seaborn
