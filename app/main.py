@@ -1,10 +1,19 @@
 from fastapi import FastAPI, UploadFile, File
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from app.predict import predict_currency
 from app.schemas import CurrencyResponse
 import cv2
 import numpy as np
 
 app = FastAPI(title="Fake Currency Detector")
+
+# Mount static files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+@app.get("/")
+async def read_index():
+    return FileResponse('static/index.html')
 
 @app.post("/detect", response_model=CurrencyResponse)
 async def detect_currency(file: UploadFile = File(...)):

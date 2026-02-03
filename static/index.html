@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake Currency Detector</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fake Currency Detector</h1>
+            <p>Advanced AI-powered fake currency verification</p>
+        </header>
+
+        <main>
+            <div class="upload-area" id="drop-zone">
+                <div class="icon-container">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 16L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M9 11L12 8L15 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M8 16H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12Z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3>Drag & Drop or Click to Upload</h3>
+                <p>Supports JPG, PNG</p>
+                <input type="file" id="file-input" accept="image/*" hidden>
+            </div>
+
+            <div class="preview-container" id="preview-container" style="display: none;">
+                <img id="image-preview" src="" alt="Preview">
+                <button id="analyze-btn">Analyze Currency</button>
+            </div>
+
+            <div class="result-container" id="result-container" style="display: none;">
+                <div class="result-card">
+                    <h2>Result</h2>
+                    <div id="prediction-label" class="label">--</div>
+                    <div class="confidence-meter">
+                        <div class="confidence-bar" id="confidence-bar"></div>
+                    </div>
+                    <p id="confidence-text">Confidence: --%</p>
+                </div>
+                <button id="reset-btn" class="secondary-btn">Check Another</button>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
